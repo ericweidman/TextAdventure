@@ -5,14 +5,43 @@ import java.util.Scanner;
  */
 public class Game {
     public static Scanner scanner = new Scanner(System.in);
+    public static Player player = new Player();
 
     public static void main(String[] args) throws Exception {
 
         System.out.println("Welcome, traveller.");
 
-        Player player = new Player();
         player.chooseName();
         player.chooseWeapon();
         player.chooseLocation();
+
+        player.findItem("shield");
+        player.findItem("boots");
+        player.findItem("belt");
+    }
+
+    public static String nextLine() {
+        String line = scanner.nextLine();
+        while (line.startsWith("/")) {
+            switch (line) {
+                case "/hello":
+                    System.out.println("Hello");
+                    break;
+                case "/inv":
+                    for (String item : player.items) {
+                        System.out.println(item);
+                    }
+                    break;
+                default:
+                    System.out.println("Command not found!");
+                    break;
+                case "/exit":
+                    System.exit(0);
+                    break;
+            }
+            line = scanner.nextLine();
+        }
+        return line;
+
     }
 }
